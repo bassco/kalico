@@ -19,7 +19,10 @@ class DelayedGcode:
         self.name = config.get_name().split()[1]
         self.gcode = self.printer.lookup_object("gcode")
         gcode_macro = self.printer.load_object(config, "gcode_macro")
-        self.cmd_desc = config.get("description", "Update the duration of a delayed_gcode")
+        self.cmd_desc = config.get(
+            "description",
+            "Update the duration of a delayed_gcode",
+        )
         self.timer_gcode = gcode_macro.load_template(config, "gcode")
         self.duration = config.getfloat("initial_duration", 0.0, minval=0.0)
         self.timer_handler = None
