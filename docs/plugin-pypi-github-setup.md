@@ -7,15 +7,15 @@ This document walks through setting up automated releases for a Kalico plugin us
 
 ## Overview
 
-```
-push to main
-    └── release.yml  (python-semantic-release)
-            ├── bumps version, commits, creates git tag
-            └── creates GitHub Release  ──→  release:published event
-                                                    └── publish.yml
-                                                            ├── builds dist/
-                                                            └── pypa/gh-action-pypi-publish
-                                                                    └── PyPI (OIDC / Trusted Publisher)
+```mermaid
+flowchart LR
+    push["push to main"] --> release["release.yml"]
+    release --> |bumps version, commits, tags| tag["Git Tag"]
+    release --> |creates| ghrel["GitHub Release"]
+    ghrel --> |triggers| published["release:published event"]
+    published --> publish["publish.yml"]
+    publish --> |builds| dist["dist/"]
+    publish --> |uploads| pypi["PyPI (OIDC / Trusted Publisher)"]
 ```
 
 ## Prerequisites
